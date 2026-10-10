@@ -5,9 +5,11 @@ import {
   CardActions,
   Typography,
   Button,
-  Chip,
+  Skeleton,
+  Box,
 } from '@mui/material';
 import { ShoppingCartOutlined } from '@mui/icons-material';
+import ImageIcon from '@mui/icons-material/Image';
 import type { Book } from '../../types/book.types';
 
 interface ProductCardProps {
@@ -22,7 +24,7 @@ export const ProductCard = ({
   onAddToCart,
 }: ProductCardProps) => {
   return (
-    <Card
+    book ? (<Card
       sx={{
         width: '100%',
         maxWidth: 280,
@@ -37,28 +39,36 @@ export const ProductCard = ({
         },
       }}
     >
-      <CardMedia
-        component="img"
-        image={book.mainImage || '/images/book-placeholder.png'}
-        alt={book.name}
-        sx={{
-          height: 240,
-          objectFit: 'contain',
-          p: 2,
-          bgcolor: 'grey.50',
-        }}
-      />
+      {book.mainImage ? (
+        <CardMedia
+          component="img"
+          image={book.mainImage}
+          alt={book.name}
+          sx={{
+            height: 240,
+            objectFit: 'contain',
+            p: 2,
+            bgcolor: 'grey.50',
+          }}
+        />
+      ) : (
+        <Box
+          role="img"
+          aria-label={`No cover available for ${book.name}`}
+          sx={{
+            height: 240,
+            p: 2,
+            bgcolor: 'grey.50',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <ImageIcon sx={{ fontSize: 64, color: 'text.secondary' }} />
+        </Box>
+      )}
 
       <CardContent sx={{ flexGrow: 1 }}>
-        {book.year && (
-          <Chip
-            label={book.year}
-            size="small"
-            variant="outlined"
-            sx={{ mb: 1 }}
-          />
-        )}
-
         <Typography
           variant="h6"
           component="h2"
@@ -120,6 +130,7 @@ export const ProductCard = ({
           <ShoppingCartOutlined fontSize="small" />
         </Button>
       </CardActions>
-    </Card>
+    </Card>)
+    : ( <Skeleton variant="rectangular" width={220} height={420} />)
   );
 }

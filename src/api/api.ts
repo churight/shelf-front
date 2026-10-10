@@ -9,7 +9,7 @@ export async function getBooks(): Promise<Book[]> {
   if (!response.ok) {
     throw new Error('Failed to fetch books');
   }
-  console.log(response)
+  
   return response.json();
 }
 
