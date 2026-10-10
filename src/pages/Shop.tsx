@@ -1,6 +1,7 @@
 import { Alert, CircularProgress } from '@mui/material';
 import { useBooks } from '../hooks/books/useBooks';
-import { BookCatalog } from '../components/BookCatalog';
+import { BookCatalog } from '../components';
+
 
 export default function Shop() {
   const { books, loading, error } = useBooks();
