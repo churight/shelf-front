@@ -1,0 +1,1 @@
+export { BookCatalog as default, BookCatalog } from './BookCatalog';
